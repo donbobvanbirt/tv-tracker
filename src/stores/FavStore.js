@@ -1,7 +1,9 @@
 import { EventEmitter } from 'events';
 import AppDispatcher from '../AppDispatcher'
 
-let _favs = [];
+import Storage from '../Storage';
+
+let _favs = Storage.read('favs') || [];
 
 class FavStore extends EventEmitter {
   constructor() {
@@ -16,6 +18,10 @@ class FavStore extends EventEmitter {
           break;
 
       }
+    })
+
+    this.on('CHANGE',() => {
+      Storage.write('favs', _favs);
     })
   }
 

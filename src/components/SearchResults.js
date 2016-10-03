@@ -45,15 +45,34 @@ export default class SearchResults extends Component {
     let { shows, favs } = this.state;
     let showList = null;
 
+
     if (shows) {
       showList = shows.map((show, i) => {
-        return (
-          <li key={show.show.id}>
-            {show.show.name}
-            <button onClick={() => this._favoriteShow(show.show.name)} className="btn btn-sm btn-default">Favorite</button>
+        // let isFav = false;
+        // if (favs.includes(show)) {
+        //   isFav = true;
+        // }
+        if (favs.includes(show)) {
 
-          </li>
-        )
+          return (
+            <li key={show.show.id}>
+              {show.show.name}
+
+              {/* <button onClick={() => this._favoriteShow(show.show.name)} className="btn btn-sm btn-default">Favorite</button> */}
+            </li>
+          )
+
+          } else {
+            return (
+              <li key={show.show.id}>
+                {show.show.name}
+
+                <button onClick={() => this._favoriteShow(show.show.name)} className="btn btn-sm btn-default">Favorite</button>
+
+              </li>
+            )
+          }
+
       })
     }
 
