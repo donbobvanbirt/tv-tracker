@@ -1,17 +1,17 @@
 import { EventEmitter } from 'events';
 import AppDispatcher from '../AppDispatcher'
 
-let _shows = null;
+let _favs = [];
 
-class SearchStore extends EventEmitter {
+class FavStore extends EventEmitter {
   constructor() {
     super();
 
     AppDispatcher.register(action => {
       switch (action.type) {
-        case 'RECEIVE_SHOWS':
-          _shows = action.payload.data;
-          // console.log('shows in sore', _shows);
+        case 'ADD_FAV':
+          _favs.push(action.payload.show)
+          console.log('favs in store:', _favs);
           this.emit('CHANGE');
           break;
 
@@ -27,9 +27,9 @@ class SearchStore extends EventEmitter {
     this.removeListener('CHANGE', cb)
   }
 
-  getShows() {
-    return _shows;
+  getFavs() {
+    return _favs;
   }
 }
 
-export default new SearchStore;
+export default new FavStore;
